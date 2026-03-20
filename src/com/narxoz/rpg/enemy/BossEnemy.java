@@ -7,7 +7,7 @@ public class BossEnemy {
 
     public BossEnemy(String name, int health, int attackPower) {
         this.name = name;
-        this.health = health;
+        this.health = Math.max(0, health);
         this.attackPower = attackPower;
     }
 
@@ -24,12 +24,13 @@ public class BossEnemy {
     }
 
     public void takeDamage(int amount) {
-        // TODO: Decide how boss damage should be applied and clamped.
-        health -= amount;
+        if (amount < 0) {
+            return;
+        }
+        health = Math.max(0, health - amount);
     }
 
     public boolean isAlive() {
-        // TODO: Decide whether additional boss states belong here.
         return health > 0;
     }
 }
